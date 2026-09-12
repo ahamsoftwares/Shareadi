@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Share Adi &middot; Join group</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f0fffb;
+    color: #0d352e;
+  }
+  .card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    padding: 32px 24px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 20px;
+    color: #00695c;
+    margin-bottom: 8px;
+    text-decoration: none;
+  }
+  .logo .dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #00695c;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+  h1 { font-size: 20px; margin: 12px 0 4px; }
+  p.sub { color: #546e7a; font-size: 14px; margin: 0 0 20px; }
+  .code-box {
+    background: #e0f2f1;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 22px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: #004d40;
+    margin-bottom: 20px;
+  }
+  button {
+    width: 100%;
+    border: 0;
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background: #00695c;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  button:active { background: #004d40; }
+  .fallback {
+    border-top: 1px solid #eceff1;
+    padding-top: 16px;
+    text-align: left;
+  }
+  .fallback h3 { font-size: 14px; margin: 0 0 8px; color: #37474f; }
+  .fallback ol { margin: 0; padding-left: 18px; color: #546e7a; font-size: 13px; line-height: 1.7; }
+  .fallback b { color: #004d40; }
+</style>
+</head>
+<body>
+<div class="card">
+  <a class="logo" href="https://play.google.com/store/apps/details?id=com.shareadi.share_adi&pcampaignid=web_share"><span class="dot">&rarr;</span>Share Adi</a>
+  <h1>Join this group</h1>
+  <p class="sub">This link opens Share Adi.</p>
+  <div class="code-box" id="codeBox" hidden></div>
+  <button id="openBtn">Open in Share Adi</button>
+  <div class="fallback">
+    <h3>Nothing happened?</h3>
+    <ol>
+      <li>Install <b><a href="https://play.google.com/store/apps/details?id=com.shareadi.share_adi&pcampaignid=web_share">Share Adi</a></b> from the <a href="https://play.google.com/store/apps/details?id=com.shareadi.share_adi&pcampaignid=web_share">Play Store</a> if you don't have it.</li>
+      <li>Open the app and tap <b>Join a group</b>.</li>
+      <li>Enter this code: <b id="code2"></b></li>
+    </ol>
+  </div>
+</div>
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var code = (params.get('code') || '').trim().toUpperCase();
+  var openBtn = document.getElementById('openBtn');
+  var url = 'shareadi://join?code=' + encodeURIComponent(code);
+
+  if (code) {
+    var codeBox = document.getElementById('codeBox');
+    codeBox.hidden = false;
+    codeBox.textContent = code;
+    document.getElementById('code2').textContent = code;
+    openBtn.onclick = function () { window.location.href = url; };
+  } else {
+    openBtn.hidden = true;
+    document.querySelector('.sub').textContent =
+      'This invite link is missing its group code.';
+  }
+})();
+</script>
+</body>
+</html>
