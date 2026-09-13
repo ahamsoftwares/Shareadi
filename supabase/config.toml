@@ -1,0 +1,2 @@
+[functions.smooth-endpoint]
+verify_jwt = false
